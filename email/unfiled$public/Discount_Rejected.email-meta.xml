@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <attachments>
+        <content>Q29tcGxldGUgdGFza3M6LQ0KDQoNCjEuIERlcGxveW1lbnQgb2YgYWxsIGFzc2lnbm1lbnRzIC0gU0YgQWRtaW4NCjIuIERlcGxveW1lbnQgb2YgYWxsIGFzc2lnbm1lbnRzIC0gQ0kvQ0QNCjMuIERhdGEgU2VjdXJpdHkgVHJhaWxoZWFkDQo0LiBDSS9DRCBUcmFpbGhlYWQNCjUuIFB1YmxpYywgRGVsZWdhdGVkIEFkbWluLCBRdWV1ZSwgU2hhcmluZyBydWxlcy4NCjYuIENvbXBsZXRlIHJlY29yZGluZ3MNCg==</content>
+        <name>Tasks_Discount.txt</name>
+    </attachments>
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Discount Rejected</name>
+    <style>none</style>
+    <subject>Regrets!!! Rejected</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
