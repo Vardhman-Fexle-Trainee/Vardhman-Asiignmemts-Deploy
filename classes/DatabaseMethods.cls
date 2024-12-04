@@ -25,12 +25,12 @@ public class DatabaseMethods {
     
     public static void insertBulkDataofTrainingSession(){
         
-        List<Training_Session__c> listOfTrainingSession = new list<Training_Session__c> { new Training_Session__c( Location__c ='MH'), 
+        List<Training_Session__c> listOfTrainingSession = new List<Training_Session__c> { new Training_Session__c( Location__c ='MH'), 
             new Training_Session__c(Name='RJ', Location__c ='KR')};
             
-            Database.SaveResult[] arrOfCreatedRecords = Database.insert(listOfTrainingSession, false);
+            Database.saveResult[] arrOfCreatedRecords = Database.insert(listOfTrainingSession, false);
         
-            for (Database.SaveResult insertedRecord :arrOfCreatedRecords ) {
+            for (Database.saveResult insertedRecord :arrOfCreatedRecords ) {
                 if (insertedRecord.isSuccess()) {
         
                     System.debug(insertedRecord + 'Record inserted successfully');
@@ -57,10 +57,10 @@ public class DatabaseMethods {
         
     public static void bulkUpdateTrainingSession(String nameOfSession, String dateOfSession){
             
-            date sessionDate = date.valueof(dateOfSession);
+            Date sessionDate = Date.valueof(dateOfSession);
             
-            Training_Session__c recordToUpdate =[select Name, Location__c, Session_Date__c 
-                                              from Training_Session__c where Name = :nameOfSession AND Session_Date__c =:sessionDate];
+            Training_Session__c recordToUpdate =[SELECT Name, Location__c, Session_Date__c 
+                                              FROM Training_Session__c WHERE Name = :nameOfSession AND Session_Date__c =:sessionDate];
             recordToUpdate.Location__c ='Jaipur';
             recordToUpdate.Name ='Harshit';
             
@@ -89,13 +89,13 @@ public class DatabaseMethods {
   
     public static void deleteRecordsOfSesion(String sessionName, String place){
                 
-            Training_Session__c sessionRecordToDelete = [select Name, Location__c 
-                                                         from Training_Session__c 
-                                                         where Name = :sessionName and Location__c = :place];
+            Training_Session__c sessionRecordToDelete = [SELECT Name, Location__c 
+                                                         FROM Training_Session__c 
+                                                         WHERE Name = :sessionName AND Location__c = :place];
                 
-            database.deleteresult deletedRecord = Database.delete(sessionRecordToDelete);
+            database.deleteResult deletedRecord = Database.delete(sessionRecordToDelete);
                 
-            if(deletedRecord.issuccess()){                    
+            if(deletedRecord.isSuccess()){                    
                 System.debug('Records deleted successfully.');
             }                
             else{                    
