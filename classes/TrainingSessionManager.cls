@@ -8,7 +8,7 @@
 *	version logs:- v1. 0
 ***/
 
-public with sharing class TrainingSessionManager {
+public class TrainingSessionManager {
     /** 
     *   Description:- createTrainingSessionRecords() will insert records in Training session and Attendee object using DML INSERT command. 
     *   
@@ -24,7 +24,7 @@ public with sharing class TrainingSessionManager {
         listOfTrainingSessionRecord.add( new Training_Session__c(Name = 'Session1', Location__c = 'MH'));
         listOfTrainingSessionRecord.add( new Training_Session__c(Name = 'Session2',Location__c = 'GJ'));
         listOfTrainingSessionRecord.add( new Training_Session__c(Name = 'Session3',Location__c = 'PB'));
-        Insert listOfTrainingSessionRecord;
+        insert listOfTrainingSessionRecord;
         
         List<Attendee__c> listOfAttendeeRecord = new List<Attendee__c>();
         listOfAttendeeRecord.add( new Attendee__c(Name = 'Attendee1', Phone__c = 0987456321, Email__c ='attendee@one.com', Training_Session_Attendee__c = listOfTrainingSessionRecord[0].Id )); 
@@ -44,7 +44,7 @@ public with sharing class TrainingSessionManager {
     */    
 
     public static void fetchTrainingSessionRecords() {
-      List<Training_Session__c> fetchAllRecords = [Select Name, Location__c, (Select Name, Phone__c, Email__c From Attendees__r ) From Training_Session__c];
+      List<Training_Session__c> fetchAllRecords = [SELECT Name, Location__c, (SELECT Name, Phone__c, Email__c FROM Attendees__r ) FROM Training_Session__c];
         
         for(Training_Session__c sessionRecordAndAttendeeList : fetchAllRecords){
             System.debug(sessionRecordAndAttendeeList) ;
@@ -69,7 +69,7 @@ public with sharing class TrainingSessionManager {
        
         List<Attendee__c> updateAttendeeRecord = [Select Id, Training_Session_Attendee__c From Attendee__c LIMIT 1];
        
-        List<Training_Session__c> updateTrainingSessionRecord = [Select Id, Location__c From Training_Session__c Where Name = 'Session2' LIMIT 1];
+        List<Training_Session__c> updateTrainingSessionRecord = [SELECT Id, Location__c FROM Training_Session__c WHERE Name = 'Session2' LIMIT 1];
         
         updateAttendeeRecord[0].Training_Session_Attendee__c = updateTrainingSessionRecord[0].Id;
         update updateAttendeeRecord ;
@@ -86,9 +86,9 @@ public with sharing class TrainingSessionManager {
     */
     
     public static void deleteTrainingSessionRecords(){
-        Attendee__c deleteAttendee = [SELECT ID FROM Attendee__c WHERE Name = 'Attendee1' LIMIT 1];
+        Attendee__c deleteAttendee = [SELECT Id FROM Attendee__c WHERE Name = 'Attendee1' LIMIT 1];
         System.debug(deleteAttendee);
-        DELETE deleteAttendee;
+        delete deleteAttendee;
     }
     
     /** 
@@ -101,8 +101,8 @@ public with sharing class TrainingSessionManager {
     *   version logs:- v1. 0
     */
     public static void undeleteTrainingSessionRecords(){
-        List<Attendee__c> undeleteAttendee = [SELECT ID, Name FROM Attendee__c WHERE Name = 'Attendee1' ALL ROWS];
-        UNDELETE undeleteAttendee;
+        List<Attendee__c> undeleteAttendee = [SELECT Id, Name FROM Attendee__c WHERE Name = 'Attendee1' ALL ROWS];
+        undelete undeleteAttendee;
         System.debug(undeleteAttendee);
         
     }
