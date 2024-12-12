@@ -1,4 +1,28 @@
+/**
+ *  Description :- ContactTriggerHandler will handle before insert event on Contact
+ *  
+ * Created by :- Vardhman Jain
+ * 
+ *  Created Date :- 06-Dec-2024
+ * 
+ *  Revision Logs :- v1.0
+ *                  
+ * 
+ */
+
+
 public without sharing class ContactTriggerHandler {
+
+    /**
+    *  Description :- emailDomain method ensures contact Email contains related account domain. 
+    *  
+    * Created by :- Vardhman Jain
+    * 
+    *  Created Date :- 06-Dec-2024
+    * 
+    *  Revision Logs :- v1.0
+    *                    
+    */
     
     public static void emailDomain(List<Contact> newConList){
 
