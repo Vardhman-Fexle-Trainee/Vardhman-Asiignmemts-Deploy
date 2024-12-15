@@ -1,44 +1,30 @@
+/**
+ *  Description :- AttendeeTriggerHandler class will handle all events of trigger while perfoming any DML operations on Attendee.
+ *  
+ * Created by :- Vardhman Jain
+ * 
+ *  Created Date :- 06-Dec-2024
+ * 
+ *  Revision Logs :- v1.0
+ *                  
+ * 
+ */
+
 public class AttendeeTriggerHandler {
+
+/**
+ *  Description :- countTrainingSession() method will count the related Attendee__c to Contact and reflect on contact field.
+ *  
+ * Created by :- Vardhman Jain
+ * 
+ *  Created Date :- 06-Dec-2024
+ * 
+ *  Revision Logs :- v1.0
+ *                  
+ * 
+ */
     public static void countTrainingSession(List<Attendee__c> listOfNewAttendees){
-       
-/*        if(listOfNewAttendees != null){
-            
-            Set<Contact> setOfContacts = new Set<Contact>();
-        	Set<Id> setOfTrainingSessionIds = new Set<Id>();
-        
-        	for(Attendee__c att : listOfNewAttendees ){
-            	
-            	setOfContacts.add(att.Contact_Attende__c);
-        	}
-            
-        	List<Contact> listOfContAndRelatedAtt = [SELECT Id, Name, (SELECT Id, Name, Training_Session_Attendee__c FROM Attendees__r) 
-            	                                     FROM Contact WHERE Id IN : setOfContacts];
-        
-        	//System.debug('Error Occurred after query in handler.'+ listOfNewAttendees );
-            Integer i = 0;
-            for(Contact con : listOfContAndRelatedAtt){
-            
-            	for(Attendee__c att : con.Attendees__r){
-                
-                	setOfTrainingSessionIds.add(att.Training_Session_Attendee__c);
-            	}
-            	con.Count_Sessions__c = setOfTrainingSessionIds.size() ;
-               /* try{
-                    
-                     insert con;
-                }catch(Exception e){
-                    con.addError('Error ocurred in insertion.');
-                    System.debug('Insertion error. ' + e.getMessage());
-                }*
-                
-            	setOfTrainingSessionIds.clear();
-        	}
-        }
-        
-        else{
-            System.debug('Error.');
-        }*/
-        
+
         Set<Id> setOfContactIds = new Set<Id>();
         for(Attendee__c att : listOfNewAttendees){
             
