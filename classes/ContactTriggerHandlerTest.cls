@@ -37,7 +37,7 @@ private class ContactTriggerHandlerTest {
         try{
             insert con2;
         }catch(DMLException dE){
-            System.debug('Insertion exception - ' + dE.getMessage());
+            Assert.areEqual(true, dE.getMessage().contains(ContactTriggerHandler.str),'Unexpected error');
         }
         
     }	
