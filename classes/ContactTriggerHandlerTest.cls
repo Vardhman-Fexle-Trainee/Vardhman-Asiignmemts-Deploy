@@ -37,7 +37,7 @@ private class ContactTriggerHandlerTest {
         try{
             insert con2;
         }catch(DMLException dE){
-            Assert.areEqual(true, dE.getMessage().contains(ContactTriggerHandler.str),'Unexpected error');
+            Assert.areEqual(true, dE.getMessage().contains(ContactTriggerHandler.str),'you are entering is not matched with the parent account Domain name');
         }
         
     }	
