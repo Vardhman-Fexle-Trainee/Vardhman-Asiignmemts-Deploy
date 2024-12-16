@@ -1,51 +1,39 @@
 public class AccountProcessor {
-    
-    public static void countContacts(List<Id> accountIds){
+    @future
+    public static void countContacts(List<Id> accountIds) {
+       
+        Map<Id, Integer> contactCountMap = new Map<Id, Integer>();
         
-        List<Account> listOfAccounts = [SELECT ID, Name 
-                                        FROM Account 
-                                        WHERE Id IN :accountIds] ;
-        
-        List<Account> accountsToUpdate = new List<Account>();
-        
-        for(Account acc : listOfAccounts){
+        List<AggregateResult> contactCounts = [SELECT AccountId, COUNT(Id) contactCount
+                                               FROM Contact
+                                               WHERE AccountId IN :accountIds
+                                               GROUP BY AccountId];
+
+        for(AggregateResult ar : contactCounts) {
             
-            acc.Number_Of_Contacts__c = [SELECT COUNT()
-                                        FROM Contact 
-                                        WHERE AccountId = :acc.Id];
-            accountsToUpdate.add(acc);
-            
-        }
-        try{
-            update accountsToUpdate;
-        }catch(DMLException dE){
-            System.debug('Exception occured duirng updation - ' + dE.getMessage());
-        }
-        
-        
-        
-        
-        
-        /*        Map<Id, Integer> mapOfAccIdAndContactSize = new Map<Id, Integer>();
-        for(Id i : accountIds){
-            List<Contact> listOfContacts = [SELECT Id  FROM Contact WHERE AccountId = :i ];
-            mapOfAccIdAndContactSize.put(i, listOfContacts.size());
+            Id accountId = (Id) ar.get('AccountId');
+            Integer contactCount = (Integer) ar.get('contactCount');
+            contactCountMap.put(accountId, contactCount);
         }
         
         List<Account> accountsToUpdate = new List<Account>();
-        for(Id i : mapOfAccIdAndContactSize.keySet()){
-            Account acc ;
-            acc.Id = i;
-            acc.Number_Of_Contacts__c = mapOfAccIdAndContactSize.get(i);
+
+        for(Id accountId : accountIds) {
+            
+            Account acc = new Account(Id = accountId);
+            if(contactCountMap.containsKey(accountId)){
+                
+                acc.Number_Of_Contacts__c = contactCountMap.get(accountId);
+            } else{
+                
+                acc.Number_Of_Contacts__c = 0;
+            }
             accountsToUpdate.add(acc);
         }
-        
-        try{
+
+
+        if (!accountsToUpdate.isEmpty()) {
             update accountsToUpdate;
-        }catch(DMLException dE){
-            System.debug('Exception occured duirng insertion - ' + dE.getMessage());
         }
-  */     
-        
     }
 }
