@@ -32,7 +32,8 @@ public class AccountProcessorTest {
         Test.StartTest();
         AccountProcessor.countContacts(accountIds);
         Test.StopTest();
-        //Assert.areEqual(3, acc.Number_Of_Contacts__c, 'Count must be 3');
+	Account acc1 = [SELECT Number_Of_Contacts__c FROM Account LIMIT 1];
+        Assert.areEqual(3, acc.Number_Of_Contacts__c, 'Count must be 3');
         
     }
 }
