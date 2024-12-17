@@ -1,13 +1,3 @@
-/**
-*	Description:- TrainingSessionManager class manage records in Training_Session__c and Attendee__c by performing DML operations. 
-*
-*	Created By:- Vardhman Jain
-*
-*	Created Date:- 27-Nov-2024
-*
-*	version logs:- v1. 0
-***/
-
 public class TrainingSessionManager {
     /** 
     *   Description:- createTrainingSessionRecords() will insert records in Training session and Attendee object using DML INSERT command. 
