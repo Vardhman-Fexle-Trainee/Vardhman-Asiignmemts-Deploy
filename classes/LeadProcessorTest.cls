@@ -1,5 +1,5 @@
 @IsTest
-public with sharing class LeadProcessorTest {
+public class LeadProcessorTest {
     
     @TestSetup
     private static void insertLeads(){
@@ -10,7 +10,6 @@ public with sharing class LeadProcessorTest {
             leadsToInsert.add(new Lead(LastName = 'LeadRecord ' + (i+1), 
             Company = 'Fexle', LeadSource = 'Web', Status = 'Close - Converted'));
         }
-		System.debug(leadsToInsert.size());
         insert leadsToInsert;
         
     }
@@ -26,7 +25,6 @@ public with sharing class LeadProcessorTest {
         
         List<Lead> leadList = [SELECT LeadSource FROM Lead WHERE LeadSource = 'Dreamforce'];
         
-        System.debug(leadList.size());
-        System.assertEquals(200, leadList.size(), 'List is not returning 200 records') ;
+        Assert.areEqual(200, leadList.size(), 'List is not returning 200 records') ;
     }
 }
