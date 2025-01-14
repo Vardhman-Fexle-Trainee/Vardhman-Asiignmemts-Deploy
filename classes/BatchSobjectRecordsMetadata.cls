@@ -1,9 +1,19 @@
 global class BatchSobjectRecordsMetadata implements Database.Batchable<SObject>, Database.stateful, Schedulable{
     
     private List<String> deletedRecords = new List<String>();
+    
+    
+    public String ObjectName;
+
+    global BatchSobjectRecordsMetadata(String ObjectApiName){
+
+        ObjectName = ObjectApiName;
+	}
+    
     global Database.QueryLocator start(Database.BatchableContext bc){
         List<Archieve_Config__mdt> acm = [SELECT Developer_Name__c, Filter__c, Duration__c FROM Archieve_Config__mdt 
-                                          WHERE Developer_Name__c ='Account' ];
+                                          WHERE Developer_Name__c = :ObjectName ];
+        
         return Database.getQueryLocator('SELECT Id, Name, Domain__c FROM ' + acm[0].Developer_Name__c + ' WHERE ' + acm[0].Filter__c 
                                         + ' AND CreatedDate >= LAST_N_DAYS: ' +acm[0].Duration__c );
     }
@@ -44,7 +54,7 @@ global class BatchSobjectRecordsMetadata implements Database.Batchable<SObject>,
     
     global void execute (SchedulableContext sc){
         
-        BatchSobjectRecordsMetadata bsfc = new BatchSobjectRecordsMetadata();
+        BatchSobjectRecordsMetadata bsfc = new BatchSobjectRecordsMetadata('Account');
         Database.executeBatch(bsfc,1);
         String str = '0 0 1 * * ?';
         System.Schedule('Every Month', str, bsfc);
