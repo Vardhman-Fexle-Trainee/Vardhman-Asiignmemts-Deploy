@@ -3,16 +3,16 @@ global class BatchSobjectRecordsMetadata implements Database.Batchable<SObject>,
     private List<String> deletedRecords = new List<String>();
     
     
-    public String ObjectName;
+    public String objectName;
 
-    global BatchSobjectRecordsMetadata(String ObjectApiName){
+    global BatchSobjectRecordsMetadata(String objectApiName){
 
-        ObjectName = ObjectApiName;
+        objectName = objectApiName;
 	}
     
     global Database.QueryLocator start(Database.BatchableContext bc){
         List<Archieve_Config__mdt> acm = [SELECT Developer_Name__c, Filter__c, Duration__c FROM Archieve_Config__mdt 
-                                          WHERE Developer_Name__c = :ObjectName ];
+                                          WHERE Developer_Name__c = :objectName ];
         
         return Database.getQueryLocator('SELECT Id, Name, Domain__c FROM ' + acm[0].Developer_Name__c + ' WHERE ' + acm[0].Filter__c 
                                         + ' AND CreatedDate >= LAST_N_DAYS: ' +acm[0].Duration__c );
@@ -27,8 +27,7 @@ global class BatchSobjectRecordsMetadata implements Database.Batchable<SObject>,
             csvData += sbc.Id + '\n';
         }
         
-        deletedRecords.add(csvData);
-        System.debug(deletedRecords);
+        deletedRecords.add(csvData);        
         delete recordsOfSObject; 
     }
     
