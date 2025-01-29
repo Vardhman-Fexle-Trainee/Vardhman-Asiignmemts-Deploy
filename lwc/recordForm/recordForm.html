@@ -1,0 +1,49 @@
+<template>
+
+    <lightning-button  variant = "brand" label = "Create Contact" title = "Create Contact" onclick = {handleClick} ></lightning-button>
+    
+    <template if:true = {isCreate}>
+
+    <lightning-card title = "Create Contact">
+
+        <lightning-record-form object-api-name = "Contact" layout-type = "Full" columns = "2"   >
+
+        </lightning-record-form>
+
+    </lightning-card>
+</template>
+
+
+
+    <lightning-button label  = "Edit Records" title = "Edit Records" onclick = {handleEditClick} ></lightning-button>
+
+
+    <template if:true = {isEdit}>
+
+
+    <lightning-card title = "Edit Contact">
+
+        <lightning-record-form object-api-name = "Contact" columns = "2" fields = {fields} mode = "edit" record-id={recordId} >
+
+        </lightning-record-form>
+
+    </lightning-card>
+
+</template>
+
+
+<lightning-button label  = "Readonly Records" title = "Readonly Records" onclick = {handleReadonlyClick} ></lightning-button>
+
+<template if:true = {isReadOnly}>
+
+
+    <lightning-card title = "Read only Contacts">
+
+        <lightning-record-form object-api-name = {objectApiName} columns = "2" fields = {fields} mode = "readonly" record-id={recordId}>
+
+        </lightning-record-form>
+
+    </lightning-card>
+</template>
+    
+</template>
