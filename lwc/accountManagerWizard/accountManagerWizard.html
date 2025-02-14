@@ -1,0 +1,48 @@
+<template>
+    <lightning-card title="Account Manager Wizard">
+        <div class="slds-p-around_medium">
+            <lightning-record-view-form record-id={recordId} object-api-name="Account">
+                <div class="slds-p-around_medium">
+                    <lightning-output-field field-name="Name"></lightning-output-field>
+                    <lightning-output-field field-name="OwnerId"></lightning-output-field>
+                    <lightning-output-field field-name="Description"></lightning-output-field>
+                    <lightning-input label="No. Of Contacts" value={contactsCount} readonly></lightning-input>
+                </div>
+            </lightning-record-view-form>
+            <lightning-button label="Create New Contact" onclick={handleCreateNewContact}></lightning-button>
+            <lightning-input
+                  type="search"
+                  name="enter-search" 
+                  label="Search Accounts"
+                  onchange={handleKeyUp}
+                ></lightning-input>
+            <lightning-datatable
+                key-field="id"
+                data={contacts.data}
+                columns={columnsContact}
+                hide-checkbox-column>
+            </lightning-datatable>
+        </div>
+        <template if:true={isModalOpen}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 class="slds-text-heading_medium">Create New Contact</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium">
+                        <c-contact-save-form onclose={handleCloseModal} onsave={handleSaveContact}></c-contact-save-form>
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button label="Save" onclick={handleSave} variant="brand"></lightning-button>
+                        <lightning-button label="Cancel" onclick={handleCloseModal}></lightning-button>
+                    </footer>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </lightning-card>
+</template>
