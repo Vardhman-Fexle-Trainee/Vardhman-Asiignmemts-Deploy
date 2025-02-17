@@ -29,7 +29,7 @@ export default class AccountManagerWizard extends LightningElement {
     @wire(getRecord, { recordId: '$recordId', fields: ACCOUNT_FIELDS })
     account;
 
-    @wire(getContacts, { accountId: '$recordId', dataSearch: '$passBlank', wantCount: true })
+    @wire(getContacts, { accountId: '$recordId', dataSearch: '$passBlank' })
     contactToCount(value) {        
        
         this.wiredContactToCountResult = value;
@@ -40,7 +40,7 @@ export default class AccountManagerWizard extends LightningElement {
          }
     }
 
-    @wire(getContacts, { accountId: '$recordId', dataSearch: '$searchData', wantCount: false })
+    @wire(getContacts, { accountId: '$recordId', dataSearch: '$searchData'})
     contacts;
 
     handleKeyUp(event) {
