@@ -1,4 +1,4 @@
-public class ContactTriggerHandler{
+public class ContactsTriggerHandler{
     
     public static void verifyAddress(List<Contact> listOfContacts){
         
