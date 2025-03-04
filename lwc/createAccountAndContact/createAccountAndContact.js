@@ -11,22 +11,35 @@ import PHONE__FIELD from '@salesforce/schema/Contact.Phone';
 import FIRST_NAME_FIELD from '@salesforce/schema/Contact.FirstName';
 import LAST_NAME_FIELD from '@salesforce/schema/Contact.LastName';
 
+
+const COLUMNS = [ { label: 'Name', fieldName: 'Name', type: 'text' }, 
+        { label: 'AccountNumber', fieldName: 'AccountNumber', type: 'text'},
+        { label: 'Phone', fieldName: 'Phone', type: 'phone'}];
 export default class AccountContactRecordCreation extends LightningElement {
     
     @track accountRecord=[];
     @track myAccount = { 'sobjectType': 'Account' };
-    @track myContact = { 'sobjectType': 'Contact' };    
+    @track myContact = { 'sobjectType': 'Contact' };  
+    namefield = NAME_FIELD ;
+    AccountNumberfield = ACCOUNT_NUMBER_FIELD ;
+    Phonefield = PHONE_FIELD ;
+    firstnamefield = FIRST_NAME_FIELD;
+    lastNameField = LAST_NAME_FIELD
+    contactPhonefield = PHONE__FIELD
+    columns = COLUMNS;
     error;
     objectApiName = getobjectApiName;
     isCreated = false;
     isContactCreated = false;
     accountRecordId;
 
-        // AccountHandlers
+    createAccounts(){            
+            this.isCreated = !this.isCreated;                    
+        }
     
+        // AccountHandlers    
     NameChange(event){
         this.myAccount.Name = event.target.value;
-
     }
     PhoneChange(event){
         this.myAccount.Phone = event.target.value;
@@ -47,16 +60,13 @@ export default class AccountContactRecordCreation extends LightningElement {
         this.isCreated=false;
     }
 
-        // ContactHandlers
-    
+        // ContactHandlers    
     firstNameChange(event){
         this.myContact.FirstName = event.target.value;
-
     }
     lastNameChange(event){
         this.myContact.LastName = event.target.value;
         this.myContact.AccountId = this.accountRecordId.Id;
-
     }
     emailChange(event){
         this.myContact.Email = event.target.value;
@@ -65,25 +75,13 @@ export default class AccountContactRecordCreation extends LightningElement {
         createContacts({conRecord : this.myContact})
         this.isContactCreated=false;
         this.isCreated=false;
-
-
     }
     handleContactCancelButton(){
         this.isCreated = false;
         this.isContactCreated=false;
     }
 
-    namefield = NAME_FIELD ;
-    AccountNumberfield = ACCOUNT_NUMBER_FIELD ;
-    Phonefield = PHONE_FIELD ;
-    firstnamefield = FIRST_NAME_FIELD;
-    lastNameField = LAST_NAME_FIELD
-    contactPhonefield = PHONE__FIELD
-
-    columns = [ { label: 'Name', fieldName: 'Name', type: 'text' }, 
-        { label: 'AccountNumber', fieldName: 'AccountNumber', type: 'text'},
-        { label: 'Phone', fieldName: 'Phone', type: 'phone'}];
-
+        // wire method calls
         @wire(getAccounts)
         wiredAccount(Result){
             this.wiredListResultData = Result;
@@ -93,15 +91,5 @@ export default class AccountContactRecordCreation extends LightningElement {
             else if(Result.error){
                 this.error=Result.error;
             }
-        }
-        
-        createAccounts(){
-            if(this.isCreated == true){
-                this.isCreated =false;
-            }else{
-                this.isCreated =true;
-            }
-
-        }
-
+        }                
 }
