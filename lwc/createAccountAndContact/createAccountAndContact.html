@@ -1,0 +1,62 @@
+<template>
+    <lightning-card title = 'Accounts List'>        
+        <lightning-datatable
+        key-field="id"
+        data={accountRecord}
+        columns={columns}>
+        </lightning-datatable>
+
+    <lightning-button label="New Account" onclick={createAccounts}></lightning-button>    
+
+    <div lwc:if={isCreated}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true"></svg>
+            <lightning-modal-header label="Create Account"></lightning-modal-header>
+        <lightning-modal-body> 
+            <lightning-input label="Name"  onchange={NameChange} ></lightning-input>
+            <lightning-input label="AccountNumber"  onchange={AccountNumberChange} ></lightning-input>
+            <lightning-input label="Phone" onchange={PhoneChange} ></lightning-input>
+
+        </lightning-modal-body>
+        <lightning-modal-footer>
+                <lightning-button class="slds-button slds-float_left" label="Save" onclick={handleAccountSaveButton}>
+                </lightning-button> 
+                <svg class="slds-button__icon slds-button__icon_right" aria-hidden="true">
+                  </svg> 
+                <lightning-button class="slds-button slds-float_right" label="Cancel" onclick={handleAccountCancelButton} >
+                    <svg class="slds-button__icon slds-button__icon_right" aria-hidden="true">
+                    </svg>
+                </lightning-button> 
+        </lightning-modal-footer>
+            </div>
+        </section>
+    </div>
+
+    <div if:true={isContactCreated}>
+        <section role="dialog" tabindex="-1" aria-modal="true" aria-labelledby="modal-heading-01" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+            <svg class="slds-button__icon slds-button__icon_large" aria-hidden="true"></svg>
+            <lightning-modal-header label="Create Related Contact"></lightning-modal-header>
+        <lightning-modal-body> 
+            <lightning-input label="FirstName"  onchange={firstNameChange} ></lightning-input>
+            <lightning-input label="LastName"  onchange={lastNameChange} required></lightning-input>
+            <lightning-input label="Email" onchange={emailChange} ></lightning-input>
+            <lightning-input label="AccountId"  value={accountRecordId.Id} disabled ></lightning-input>
+
+        </lightning-modal-body>
+        <lightning-modal-footer>
+                <lightning-button class="slds-button slds-float_left" label="Save" onclick={handleContactSaveButton}>
+                </lightning-button> 
+                <svg class="slds-button__icon slds-button__icon_right" aria-hidden="true">
+                  </svg> 
+                <lightning-button class="slds-button slds-float_right" label="Cancel" onclick={handleContactCancelButton} >
+                    <svg class="slds-button__icon slds-button__icon_right" aria-hidden="true">
+                    </svg>
+                </lightning-button> 
+        </lightning-modal-footer>
+            </div>
+        </section>
+    </div>
+</lightning-card>
+</template>
